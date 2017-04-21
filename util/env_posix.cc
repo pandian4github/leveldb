@@ -316,7 +316,7 @@ class PosixEnv : public Env {
     int fd = open(fname.c_str(), O_RDONLY);
     if (fd < 0) {
       s = IOError(fname, errno);
-    } else if (mmap_limit_.Acquire()) {
+    } else if (false && mmap_limit_.Acquire()) {
       uint64_t size;
       s = GetFileSize(fname, &size);
       if (s.ok()) {
@@ -470,7 +470,7 @@ class PosixEnv : public Env {
       *result = env;
     } else {
       char buf[100];
-      snprintf(buf, sizeof(buf), "/tmp/leveldbtest-%d", int(geteuid()));
+      snprintf(buf, sizeof(buf), "/mnt/raid0/flsm/leveldbtest-original-%d", int(geteuid()));
       *result = buf;
     }
     // Directory may already exist
